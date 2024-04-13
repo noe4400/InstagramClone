@@ -35,6 +35,7 @@ jobs:
           config: ./commitlint.config.mjs
 
       - name: Linter
-        uses:
+        run: yarn run lint
+
       - name: Styles
         run: yarn run styles-check
