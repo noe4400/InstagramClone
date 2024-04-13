@@ -10,6 +10,7 @@
     "start": "react-native start",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
+    "commitlint-from": "commitlint --from",
     "commit": "cz"
   },
   "lint-staged": {
