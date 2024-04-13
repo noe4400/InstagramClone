@@ -5,10 +5,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import colors from '../../assets/theme/colors';
-import Comment from '../Comment';
-import {IPost} from '../../types/PostTypes';
-
+import {IPost} from '@/types/PostTypes';
+import colors from '@/theme/colors';
+import Comment from '@/components/Comment';
 interface IFeedPost {
   post: IPost;
 }
