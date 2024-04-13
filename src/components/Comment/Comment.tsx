@@ -12,6 +12,7 @@ interface ICommentProps {
 export default function Comment({comment}: ICommentProps) {
   const {user, comment: userComment} = comment;
   const {username} = user;
+
   return (
     <View style={styles.comment}>
       <Text style={styles.commentText}>
