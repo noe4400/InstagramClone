@@ -8,6 +8,8 @@ import styles from './styles';
 import {IPost} from '@/types/PostTypes';
 import colors from '@/theme/colors';
 import Comment from '@/components/Comment';
+
+import Carousel from '@/components/Carousel';
 interface IFeedPost {
   post: IPost;
 }
@@ -15,6 +17,7 @@ interface IFeedPost {
 const FeedPost = ({post}: IFeedPost) => {
   const {
     image: postImage,
+    images = [],
     user,
     description: postDescription,
     nofComments,
@@ -22,6 +25,18 @@ const FeedPost = ({post}: IFeedPost) => {
     comments,
   } = post;
   const {username, image: avatar} = user;
+
+  const postContent = post.image ? (
+    <Image
+      source={{
+        uri: postImage,
+      }}
+      style={styles.postImage}
+    />
+  ) : (
+    <Carousel images={images} />
+  );
+
   return (
     <View>
       <View style={styles.postHeader}>
@@ -38,12 +53,7 @@ const FeedPost = ({post}: IFeedPost) => {
           style={styles.threeDots}
         />
       </View>
-      <Image
-        source={{
-          uri: postImage,
-        }}
-        style={styles.postImage}
-      />
+      {postContent}
       <View style={styles.footerContainer}>
         <View style={styles.iconContainer}>
           <AntDesign
