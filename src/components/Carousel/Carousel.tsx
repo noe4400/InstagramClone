@@ -20,6 +20,7 @@ const Carousel = ({images}: ICarousel) => {
   return (
     <FlatList
       data={images}
+      keyExtractor={(_, idx) => `post-${idx}`}
       renderItem={({item}) => <CarouselImg imgUri={item} />}
       horizontal
       showsHorizontalScrollIndicator={false}
