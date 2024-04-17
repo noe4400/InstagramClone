@@ -8,7 +8,9 @@ import styles from './styles';
 import {IPost} from '@/types/PostTypes';
 import colors from '@/theme/colors';
 import Comment from '@/components/Comment';
+import Carousel from '@/components/Carousel';
 import ScaleAnimation from '@/HOCs/ScaleAnimation';
+
 
 interface IFeedPost {
   post: IPost;
@@ -19,6 +21,7 @@ const FeedPost = ({post}: IFeedPost) => {
 
   const {
     image: postImage,
+    images = [],
     user,
     description: postDescription,
     nofComments,
@@ -28,9 +31,22 @@ const FeedPost = ({post}: IFeedPost) => {
 
   const {username, image: avatar} = user;
 
+
+  const postContent = post.image ? (
+    <Image
+      source={{
+        uri: postImage,
+      }}
+      style={styles.postImage}
+    />
+  ) : (
+    <Carousel images={images} />
+  );
+
   const handleLike = () => {
     setLike(prevValue => !prevValue);
   };
+
 
   return (
     <View>
@@ -48,12 +64,7 @@ const FeedPost = ({post}: IFeedPost) => {
           style={styles.threeDots}
         />
       </View>
-      <Image
-        source={{
-          uri: postImage,
-        }}
-        style={styles.postImage}
-      />
+      {postContent}
       <View style={styles.footerContainer}>
         <View style={styles.iconContainer}>
           <ScaleAnimation cb={handleLike}>
