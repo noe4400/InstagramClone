@@ -1,5 +1,5 @@
 import {View, Text, Image} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
@@ -8,13 +8,17 @@ import styles from './styles';
 import {IPost} from '@/types/PostTypes';
 import colors from '@/theme/colors';
 import Comment from '@/components/Comment';
-
 import Carousel from '@/components/Carousel';
+import ScaleAnimation from '@/HOCs/ScaleAnimation';
+
+
 interface IFeedPost {
   post: IPost;
 }
 
 const FeedPost = ({post}: IFeedPost) => {
+  const [isLike, setLike] = useState(false);
+
   const {
     image: postImage,
     images = [],
@@ -24,7 +28,9 @@ const FeedPost = ({post}: IFeedPost) => {
     nofLikes,
     comments,
   } = post;
+
   const {username, image: avatar} = user;
+
 
   const postContent = post.image ? (
     <Image
@@ -36,6 +42,11 @@ const FeedPost = ({post}: IFeedPost) => {
   ) : (
     <Carousel images={images} />
   );
+
+  const handleLike = () => {
+    setLike(prevValue => !prevValue);
+  };
+
 
   return (
     <View>
@@ -56,12 +67,14 @@ const FeedPost = ({post}: IFeedPost) => {
       {postContent}
       <View style={styles.footerContainer}>
         <View style={styles.iconContainer}>
-          <AntDesign
-            name={'hearto'}
-            size={24}
-            style={styles.icon}
-            color={colors.black}
-          />
+          <ScaleAnimation cb={handleLike}>
+            <AntDesign
+              name={isLike ? 'heart' : 'hearto'}
+              size={24}
+              style={styles.icon}
+              color={isLike ? colors.accent : colors.black}
+            />
+          </ScaleAnimation>
           <Ionicons
             name="chatbubble-outline"
             size={24}
