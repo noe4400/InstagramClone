@@ -14,9 +14,10 @@ import VideoPlayer from '@/components/VideoPlayer';
 
 interface IFeedPost {
   post: IPost;
+  isVisible: boolean;
 }
 
-const FeedPost = ({post}: IFeedPost) => {
+const FeedPost = ({post, isVisible}: IFeedPost) => {
   const [isLike, setLike] = useState(false);
 
   const {
@@ -45,7 +46,7 @@ const FeedPost = ({post}: IFeedPost) => {
     } else if (images.length) {
       return <Carousel images={images} />;
     } else if (post?.video) {
-      return <VideoPlayer uri={video} />;
+      return <VideoPlayer uri={video} pause={!isVisible} />;
     }
   };
 

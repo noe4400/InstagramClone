@@ -6,9 +6,10 @@ import {Pressable} from 'react-native';
 import styles from './styles';
 interface IVideoPlayer {
   uri: string | undefined;
+  pause: boolean;
 }
 
-const VideoPlayer = ({uri}: IVideoPlayer) => {
+const VideoPlayer = ({uri, pause}: IVideoPlayer) => {
   const [isMuted, setIsMuted] = useState<boolean>(true);
 
   const handleMute = () => setIsMuted(!isMuted);
@@ -21,6 +22,7 @@ const VideoPlayer = ({uri}: IVideoPlayer) => {
         resizeMode="cover"
         repeat
         muted={isMuted}
+        paused={pause}
       />
       <Pressable onPress={handleMute} style={styles.mute}>
         <Ionicons
