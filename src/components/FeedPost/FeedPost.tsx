@@ -10,7 +10,7 @@ import colors from '@/theme/colors';
 import Comment from '@/components/Comment';
 import Carousel from '@/components/Carousel';
 import ScaleAnimation from '@/HOCs/ScaleAnimation';
-
+import VideoPlayer from '@/components/VideoPlayer';
 
 interface IFeedPost {
   post: IPost;
@@ -22,6 +22,7 @@ const FeedPost = ({post}: IFeedPost) => {
   const {
     image: postImage,
     images = [],
+    video,
     user,
     description: postDescription,
     nofComments,
@@ -31,22 +32,26 @@ const FeedPost = ({post}: IFeedPost) => {
 
   const {username, image: avatar} = user;
 
-
-  const postContent = post.image ? (
-    <Image
-      source={{
-        uri: postImage,
-      }}
-      style={styles.postImage}
-    />
-  ) : (
-    <Carousel images={images} />
-  );
+  const renderPostContent = () => {
+    if (postImage) {
+      return (
+        <Image
+          source={{
+            uri: postImage,
+          }}
+          style={styles.postImage}
+        />
+      );
+    } else if (images.length) {
+      return <Carousel images={images} />;
+    } else if (post?.video) {
+      return <VideoPlayer uri={video} />;
+    }
+  };
 
   const handleLike = () => {
     setLike(prevValue => !prevValue);
   };
-
 
   return (
     <View>
@@ -64,7 +69,7 @@ const FeedPost = ({post}: IFeedPost) => {
           style={styles.threeDots}
         />
       </View>
-      {postContent}
+      {renderPostContent()}
       <View style={styles.footerContainer}>
         <View style={styles.iconContainer}>
           <ScaleAnimation cb={handleLike}>
