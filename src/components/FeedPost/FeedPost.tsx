@@ -11,6 +11,7 @@ import Comment from '@/components/Comment';
 import Carousel from '@/components/Carousel';
 import ScaleAnimation from '@/HOCs/ScaleAnimation';
 import VideoPlayer from '@/components/VideoPlayer';
+import DoubleTapAnimation from '@/HOCs/DoubleTapAnimation';
 
 interface IFeedPost {
   post: IPost;
@@ -70,7 +71,9 @@ const FeedPost = ({post, isVisible}: IFeedPost) => {
           style={styles.threeDots}
         />
       </View>
-      {renderPostContent()}
+      <DoubleTapAnimation setLike={setLike}>
+        {renderPostContent()}
+      </DoubleTapAnimation>
       <View style={styles.footerContainer}>
         <View style={styles.iconContainer}>
           <ScaleAnimation cb={handleLike}>
